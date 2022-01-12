@@ -6,8 +6,9 @@ import com.google.protobuf.gradle.protoc
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val protocVersion = "3.17.3"
-val grpcVersion = "1.38.1"
+val grpcVersion = "1.43.2"
 val grpcKotlinVersion = "1.2.0"
+val grpcSpringBootStarterVersion = "4.5.10"
 
 plugins {
     id("idea")
@@ -43,13 +44,12 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
     // grpc
-    implementation("io.grpc:grpc-protobuf:$grpcVersion")
-    implementation("io.grpc:grpc-core:$grpcVersion")
-    implementation("io.grpc:grpc-netty-shaded:$grpcVersion")
-    implementation("io.grpc:grpc-stub:$grpcVersion")
+    implementation(platform("io.grpc:grpc-bom:$grpcVersion"))
+    implementation("io.grpc:grpc-netty-shaded")
+    implementation("io.grpc:grpc-services")
     implementation("io.grpc:grpc-kotlin-stub:$grpcKotlinVersion")
     implementation("com.google.protobuf:protobuf-java-util:$protocVersion")
-    implementation("io.github.lognet:grpc-spring-boot-starter:4.5.10")
+    implementation("io.github.lognet:grpc-spring-boot-starter:$grpcSpringBootStarterVersion")
 
     kapt("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
